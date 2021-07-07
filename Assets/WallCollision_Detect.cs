@@ -5,6 +5,7 @@ using UnityEngine;
 public class WallCollision_Detect : MonoBehaviour
 {
     public Transform DesignatedStickWall;
+    public Transform WallParent;
 
     public void OnTriggerStay(Collider collision)
     {
@@ -19,9 +20,9 @@ public class WallCollision_Detect : MonoBehaviour
                 if (WallAvailability_.JustHitThisObject == gameObject && !GetComponent<StolenPossibility>().InPlayerPossession)
                 {
                     //This is the enemy wall zone
-                    transform.position = collision.transform.position;
-                    transform.rotation = collision.transform.rotation;
-                    transform.SetParent(null);
+                    transform.position = DesignatedStickWall.position;
+                    transform.rotation = DesignatedStickWall.rotation;
+                    transform.SetParent(WallParent);
                 }
             }
             else
@@ -32,7 +33,7 @@ public class WallCollision_Detect : MonoBehaviour
                 {
                     transform.position = collision.transform.position;
                     transform.rotation = collision.transform.rotation;
-                    transform.SetParent(null);
+                    transform.SetParent(WallParent);
                 }
             }
         }

@@ -13,12 +13,18 @@ public class PickUpWall : MonoBehaviour
     public GameObject Timer_Parent;
     public Image TimerUI;
     public Transform CarryPoint;
-    
+
+    public Transform RightArm;
+    public Transform LeftArm;
+
+    public Transform RightArm_pos;
+    public Transform LeftArm_pos;
+
     public Transform WallToPickUp;
 
     bool StartTimer = false;
     
-
+    bool placeArms  = false;
 
     // Update is called once per frame
     void Update()
@@ -46,6 +52,13 @@ public class PickUpWall : MonoBehaviour
             TimerUI.fillAmount = 0f;
             TimerUI.DOKill();
         }
+
+        //Place arms on wall being carried
+        if (placeArms)
+        {           
+            RightArm.position = RightArm_pos.position;
+            LeftArm.position = LeftArm_pos.position;
+        }        
     }
 
     public void PickUpWallTimer()
@@ -62,6 +75,7 @@ public class PickUpWall : MonoBehaviour
 
     public void ReadyToPickUpWall()
     {
+        placeArms = true;
         WallToPickUp.GetComponent<StolenPossibility>().InPlayerPossession = true;
         WallToPickUp.GetComponent<StolenPossibility>().Stolen = true;
         WallToPickUp.SetParent(CarryPoint);
@@ -71,6 +85,7 @@ public class PickUpWall : MonoBehaviour
 
     public void PlayerHasDroppedWall()
     {
+        placeArms = false;
         WallToPickUp = null;
     }
 }

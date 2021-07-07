@@ -17,12 +17,15 @@ public class ChaseAfterStolenWall : MonoBehaviour
 
     public void ChaseWall(Transform StolenWall)
     {
-        EnemyPathDetermination_.PausePatrol();
-        WallToChase = StolenWall;
+        if (!ChaseAfterWall)
+        {
+            EnemyPathDetermination_.PausePatrol();
+            WallToChase = StolenWall;
 
-        StartCoroutine("UpdateChaseWallLocation");
+            StartCoroutine("UpdateChaseWallLocation");
 
-        ChaseAfterWall = true;
+            ChaseAfterWall = true;
+        }   
     }
 
     IEnumerator UpdateChaseWallLocation()
@@ -46,6 +49,9 @@ public class ChaseAfterStolenWall : MonoBehaviour
             {
                 //We have found the wall we are chasing
                 StopCoroutine("UpdateChaseWallLocation");
+                
+                if (WallToChase.parent.tag == "WallCarrier") { TellPlayerWallHasBeenTakenBack(); }
+
                 ChaseAfterWall = false;
                 ReturnTheWall();
             }
@@ -83,5 +89,10 @@ public class ChaseAfterStolenWall : MonoBehaviour
                 StopCoroutine("ReturningWall");
             }
         }
+    }
+
+    public void TellPlayerWallHasBeenTakenBack()
+    {       
+        FindObjectOfType<PickUpWall>().PlayerHasDroppedWall();
     }
 }

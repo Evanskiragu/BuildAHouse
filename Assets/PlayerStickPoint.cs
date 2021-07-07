@@ -5,11 +5,13 @@ using UnityEngine;
 public class PlayerStickPoint : MonoBehaviour
 {
     public GameObject JustHitThisObject;
+    public PickUpWall PickWall;
     
     public void OnTriggerStay(Collider collision)
     {
         if (collision.gameObject.tag == "Wall" && JustHitThisObject == null)
         {
+            PickWall.PlayerHasDroppedWall();
             JustHitThisObject = collision.gameObject;
         }
     }
@@ -21,6 +23,4 @@ public class PlayerStickPoint : MonoBehaviour
             JustHitThisObject = null;
         }
     }
-
-
 }

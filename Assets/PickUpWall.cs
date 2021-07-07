@@ -68,4 +68,9 @@ public class PickUpWall : MonoBehaviour
         WallToPickUp.transform.localPosition = Vector3.zero;
         WallToPickUp.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
     }
+
+    public void PlayerHasDroppedWall()
+    {
+        WallToPickUp = null;
+    }
 }

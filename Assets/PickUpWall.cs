@@ -26,6 +26,8 @@ public class PickUpWall : MonoBehaviour
     
     bool placeArms  = false;
 
+    Transform HitObstacle;
+
     // Update is called once per frame
     void Update()
     {
@@ -39,7 +41,7 @@ public class PickUpWall : MonoBehaviour
             {
                 Timer_Parent.SetActive(true);
                 TimerUI.fillAmount = 0f;
-                WallToPickUp = Ray.collider.transform;
+                HitObstacle = Ray.collider.transform;
                 StartTimer = true;
                 PickUpWallTimer();
             }
@@ -76,6 +78,7 @@ public class PickUpWall : MonoBehaviour
     public void ReadyToPickUpWall()
     {
         placeArms = true;
+        WallToPickUp = HitObstacle;
         WallToPickUp.GetComponent<StolenPossibility>().InPlayerPossession = true;
         WallToPickUp.GetComponent<StolenPossibility>().Stolen = true;
         WallToPickUp.SetParent(CarryPoint);

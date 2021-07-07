@@ -10,6 +10,7 @@ public class EnemyPathDetermination : MonoBehaviour
 
     [Space(2f)] [Header("Locally Available Waypoints")]
     public Transform[] WayPoints;
+    public bool RandomWayPoint = false;
 
     //PRIVATE
     bool Patrol = false;
@@ -50,13 +51,17 @@ public class EnemyPathDetermination : MonoBehaviour
     public int Switch_WayPoint_Target()
     {
         //check if we need to reset waypoint count
-        if (WayPoint_Counter >= WayPoints.Length - 1)
+        if (WayPoint_Counter >= WayPoints.Length - 1 && !RandomWayPoint)
         {
             WayPoint_Counter = 0;
         }
-        else
+        else if (!RandomWayPoint)
         {
             WayPoint_Counter++;
+        }
+        else
+        {
+            WayPoint_Counter = Random.Range(0, WayPoints.Length);
         }
         
         return WayPoint_Counter;
@@ -68,3 +73,4 @@ public class EnemyPathDetermination : MonoBehaviour
         Patrol = false;
     }
 }
+

@@ -10,15 +10,31 @@ public class WallCollision_Detect : MonoBehaviour
     {
         if (collision.gameObject.tag == "WallStickPoint")
         {
-            StickPoint_Availability WallAvailability_;
-            WallAvailability_ = collision.gameObject.GetComponent<StickPoint_Availability>();
+            StickPoint_Availability WallAvailability_ = null;
 
-            if (WallAvailability_.JustHitThisObject == gameObject && !GetComponent<StolenPossibility>().InPlayerPossession)
+            try { WallAvailability_ = collision.gameObject.GetComponent<StickPoint_Availability>(); } catch (System.Exception e) { }
+            
+            if (WallAvailability_ != null)
             {
-                transform.position = collision.transform.position;
-                transform.rotation = collision.transform.rotation;
-                transform.SetParent(null);
-            }            
+                if (WallAvailability_.JustHitThisObject == gameObject && !GetComponent<StolenPossibility>().InPlayerPossession)
+                {
+                    //This is the enemy wall zone
+                    transform.position = collision.transform.position;
+                    transform.rotation = collision.transform.rotation;
+                    transform.SetParent(null);
+                }
+            }
+            else
+            {
+                PlayerStickPoint PlayerStick = collision.gameObject.GetComponent<PlayerStickPoint>();
+
+                if (PlayerStick.JustHitThisObject == gameObject && GetComponent<StolenPossibility>().InPlayerPossession && collision.gameObject.GetComponent<PlayerStickPoint>())
+                {
+                    transform.position = collision.transform.position;
+                    transform.rotation = collision.transform.rotation;
+                    transform.SetParent(null);
+                }
+            }
         }
     }
 }

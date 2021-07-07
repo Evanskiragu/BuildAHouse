@@ -13,9 +13,11 @@ public class PickUpWall : MonoBehaviour
     public GameObject Timer_Parent;
     public Image TimerUI;
     public Transform CarryPoint;
+    
+    public Transform WallToPickUp;
 
     bool StartTimer = false;
-    Transform WallToPickUp;
+    
 
 
     // Update is called once per frame
@@ -37,7 +39,7 @@ public class PickUpWall : MonoBehaviour
             }
         }
         else if(StartTimer)
-        {
+        {          
             Timer_Parent.SetActive(false);
             StartTimer = false;
             StopCoroutine("Timer");

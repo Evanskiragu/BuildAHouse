@@ -19,8 +19,19 @@ public class ChaseAfterStolenWall : MonoBehaviour
     {
         EnemyPathDetermination_.PausePatrol();
         WallToChase = StolenWall;
-        MyNavMesh.destination = StolenWall.position;
+
+        StartCoroutine("UpdateChaseWallLocation");
+
         ChaseAfterWall = true;
+    }
+
+    IEnumerator UpdateChaseWallLocation()
+    {
+        while (true)
+        {
+            MyNavMesh.destination = WallToChase.position;
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     public void Update()
@@ -34,6 +45,7 @@ public class ChaseAfterStolenWall : MonoBehaviour
             if (Ray.collider.transform == WallToChase)
             {
                 //We have found the wall we are chasing
+                StopCoroutine("UpdateChaseWallLocation");
                 ChaseAfterWall = false;
                 ReturnTheWall();
             }

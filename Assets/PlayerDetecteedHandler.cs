@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using IndieMarc.EnemyVision;
+using System;
 
 public class PlayerDetecteedHandler : MonoBehaviour
 {
     public EnemyVision enemy;
+    public Transform[] MyWalls;
     
     public void Start()
     {
@@ -14,7 +16,11 @@ public class PlayerDetecteedHandler : MonoBehaviour
 
     private void OnSeen(VisionTarget target, int distance)
     {
-        //Add code for when target get seen and enemy get alerted, 0=touch, 1=near, 2=far, 3=other
-        Debug.Log("Seen");
+        if (target.GetComponent<PickUpWall>().WallToPickUp && Array.IndexOf(MyWalls, target.GetComponent<PickUpWall>().WallToPickUp) != -1)
+        {
+            //Player is carrying a wall
+            //This is also the enemy's wall so chase
+            GetComponent<ChaseAfterStolenWall>().ChaseWall(target.GetComponent<PickUpWall>().WallToPickUp);
+        }
     }
 }

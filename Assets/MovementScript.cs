@@ -35,7 +35,7 @@ public class MovementScript : MonoBehaviour
                 CalculatedAngle = (Vector3.Angle(Vector2.up, direction) * sign) + offset;
             }
 
-            APR.speed = Speed;
+            APR.speed = DebugMenuSingleton.Instance.PlayerSpeed;
             APR.Move = true;
 
             Body.rotation = Quaternion.Euler(new Vector3(0, CalculatedAngle, 0));

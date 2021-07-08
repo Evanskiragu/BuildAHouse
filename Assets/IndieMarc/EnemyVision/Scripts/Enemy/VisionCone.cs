@@ -67,11 +67,20 @@ namespace IndieMarc.EnemyVision
 
         private void Start()
         {
+            InvokeRepeating("UpdateAngleAndRange", 0.1f,0.1f);
+
             InitMesh(mesh, false);
 
             if (show_two_levels)
                 InitMesh(mesh_far, true);
         }
+
+        public void UpdateAngleAndRange()
+        {
+            vision_angle = DebugMenuSingleton.Instance.EnemyVisionAngle;
+            vision_range = DebugMenuSingleton.Instance.EnemyVisionDistance;
+        }
+
 
         private void InitMesh(MeshFilter mesh, bool far)
         {

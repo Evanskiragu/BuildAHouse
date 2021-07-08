@@ -17,7 +17,7 @@ public class EnemyPathDetermination : MonoBehaviour
     int WayPoint_Counter = 0;
 
 
-    public void Start()
+    public void OnEnable()
     {
         StartPathDetermination();
     }

@@ -20,10 +20,10 @@ public class CoinCollected : MonoBehaviour
             obj.transform.SetParent(MainCanvas.transform);
             obj.transform.localScale = new Vector3(1,1,1);
 
-            obj.GetComponent<MoveTowardsCounter>().CoinValue = 5;
+            obj.GetComponent<MoveTowardsCounter>().CoinValue = (int)DebugMenuSingleton.Instance.CoinsValue;
             obj.GetComponent<MoveTowardsCounter>().Ready();
 
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
         }        
     }
 }

@@ -18,7 +18,8 @@ public class CoinCollected : MonoBehaviour
         {
             GameObject obj = Instantiate(SpawnTextPrefab);
             obj.transform.SetParent(MainCanvas.transform);
-            obj.transform.localScale = new Vector3(1,1,1);
+            obj.transform.localScale = new Vector3(2,2,2);
+            obj.transform.position = Camera.main.WorldToScreenPoint(transform.position);
 
             obj.GetComponent<MoveTowardsCounter>().CoinValue = (int)DebugMenuSingleton.Instance.CoinsValue;
             obj.GetComponent<MoveTowardsCounter>().Ready();
